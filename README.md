@@ -51,7 +51,7 @@ var jsonData = `{
 
 Clone this repo:
 ```shell
-$ git clone 
+$ git clone https://github.com/flaviomrjr/ecr-cli.git
 ```
 
 Building this project:
