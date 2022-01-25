@@ -7,12 +7,11 @@ This cli was built to help you manage your ECR image repositories and make it ea
 
 You can set a Json policy in your image repositories.
 
-To do so you just need to set your json policy in the config file called `createRepo.go`
+To do so you just need to create a json file with your repo policy!
 
-You will find a var called jsonData:
+You will find a file called `policy.json` as a template:
 ```json
-// set json policy
-var jsonData = `{
+{
 	"Version": "2008-10-17",
 	"Statement": [
 	  {
@@ -20,8 +19,7 @@ var jsonData = `{
 		"Effect": "Allow",
 		"Principal": {
 		  "AWS": [
-			"arn:aws:iam::000000000000:root",
-			"arn:aws:iam::111111111111:root"
+			"arn:aws:iam::719493539481:root"
 		  ]
 		},
 		"Action": [
@@ -44,7 +42,7 @@ var jsonData = `{
 		]
 	  }
 	]
-  }`
+  }
 ```
 
 ## Build
@@ -62,22 +60,26 @@ $ go build
 ## Available functions
 
 **create-repo:**
-
 This function creates a new image repo in ECR with some configs imported from a json-file
 
 Usage:
   ecr create-repo [flags]
 
 Flags:
-  -h, --help             help for create-repo
+  -h, --help                 help for create-repo
+  -f, --policy-file string   Set Policy Path. e.g.: ~/Documents/policy.json (default "policy.json")
+
+Global Flags:
   -p, --profile string   Set AWS profile (default "shared")
-  -r, --repo string      Create a new image repo in ECR
+  -r, --repo string      Set repo name
 
 Examples:
 ```shell
 $ ./ecr create-repo --repo apps/mynewrepo
 
 $ ./ecr create-repo --repo apps/mynewrepo2 --profile staging
+
+$ ./ecr create-repo --repo apps/mynewrepo3 --profile development -f ~/Documents/my-new-policy.json
 ```
 
 More functions are comming!

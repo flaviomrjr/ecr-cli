@@ -5,10 +5,32 @@ Copyright © 2022 Flavio Rocha
 package cmd
 
 import (
+	"log"
 	"os"
 
 	"github.com/spf13/cobra"
 )
+
+// this func gets repo name
+func SetRepo(cmd *cobra.Command, args []string) string {
+	// get repo name
+	repo, err := cmd.Flags().GetString("repo")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return repo
+}
+
+// this func gets profile name or set profile to shared
+func SetProfile(cmd *cobra.Command, args []string) {
+	// set profile
+	profile, err := cmd.Flags().GetString("profile")
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.Setenv("AWS_PROFILE", profile)
+}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -30,13 +52,7 @@ func Execute() {
 }
 
 func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.ecr.yaml)")
-
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	//rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// global flags
+	rootCmd.PersistentFlags().StringP("repo", "r", "", "Set repo name")
+	rootCmd.PersistentFlags().StringP("profile", "p", "shared", "Set AWS profile")
 }

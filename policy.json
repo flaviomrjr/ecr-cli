@@ -1,0 +1,32 @@
+{
+	"Version": "2008-10-17",
+	"Statement": [
+	  {
+		"Sid": "eks_access",
+		"Effect": "Allow",
+		"Principal": {
+		  "AWS": [
+			"arn:aws:iam::719493539481:root"
+		  ]
+		},
+		"Action": [
+		  "ecr:BatchCheckLayerAvailability",
+		  "ecr:BatchGetImage",
+		  "ecr:CompleteLayerUpload",
+		  "ecr:DescribeImages",
+		  "ecr:GetDownloadUrlForLayer",
+		  "ecr:GetLifecyclePolicy",
+		  "ecr:GetLifecyclePolicyPreview",
+		  "ecr:GetRepositoryPolicy",
+		  "ecr:ListImages",
+		  "ecr:DescribeRepositories",
+		  "ecr:InitiateLayerUpload",
+		  "ecr:UploadLayerPart",
+		  "ecr:PutImage",
+		  "ecr:PutLifecyclePolicy",
+		  "ecr:SetRepositoryPolicy",
+		  "ecr:StartLifecyclePolicyPreview"
+		]
+	  }
+	]
+}
