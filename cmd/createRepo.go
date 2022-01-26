@@ -51,7 +51,7 @@ func SetPolicy(policy string, repo string) {
 }
 
 // create ecr repo
-func CreateRepoECR(cmd *cobra.Command, args []string, repo string) {
+func CreateRepoECR(repo string) {
 
 	result, err := NewSession().CreateRepository(&ecr.CreateRepositoryInput{
 		RepositoryName:             aws.String(repo),
@@ -90,7 +90,7 @@ var createRepoCmd = &cobra.Command{
 
 				for _, repo := range repos {
 					// create ecr repo
-					CreateRepoECR(cmd, args, repo)
+					CreateRepoECR(repo)
 
 					// set repo policy
 					SetPolicy(policy, repo)
@@ -98,7 +98,7 @@ var createRepoCmd = &cobra.Command{
 			} else {
 				for _, repo := range repos {
 					// create repo without policy
-					CreateRepoECR(cmd, args, repo)
+					CreateRepoECR(repo)
 				}
 			}
 		}
