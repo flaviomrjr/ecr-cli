@@ -78,7 +78,7 @@ var createRepoCmd = &cobra.Command{
 		// set aws profile
 		SetProfile(cmd, args)
 
-		//
+		// set repo
 		repos := SetRepo(cmd, args)
 
 		if noPolicy, err := cmd.Flags().GetBool("no-policy"); err != nil {
