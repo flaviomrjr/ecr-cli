@@ -73,6 +73,7 @@ func Execute() {
 func init() {
 	// global flags
 	rootCmd.PersistentFlags().StringSliceP("repo", "r", []string{}, "Set repo name")
+	rootCmd.MarkPersistentFlagRequired("repo")
 	rootCmd.PersistentFlags().StringP("profile", "p", "shared", "Set AWS profile")
 	rootCmd.PersistentFlags().StringP("region", "", "sa-east-1", "Set AWS region")
 }
