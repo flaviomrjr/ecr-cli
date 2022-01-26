@@ -78,6 +78,9 @@ var createRepoCmd = &cobra.Command{
 		// set aws profile
 		SetProfile(cmd, args)
 
+		//
+		repos := SetRepo(cmd, args)
+
 		if noPolicy, err := cmd.Flags().GetBool("no-policy"); err != nil {
 			log.Fatal(err)
 		} else {
@@ -85,14 +88,18 @@ var createRepoCmd = &cobra.Command{
 				// get repo policy
 				policy := GetPolicy(cmd, args)
 
-				// create ecr repo
-				CreateRepoECR(cmd, args, SetRepo(cmd, args))
+				for _, repo := range repos {
+					// create ecr repo
+					CreateRepoECR(cmd, args, repo)
 
-				// set repo policy
-				SetPolicy(policy, SetRepo(cmd, args))
+					// set repo policy
+					SetPolicy(policy, repo)
+				}
 			} else {
-				// create repo without policy
-				CreateRepoECR(cmd, args, SetRepo(cmd, args))
+				for _, repo := range repos {
+					// create repo without policy
+					CreateRepoECR(cmd, args, repo)
+				}
 			}
 		}
 	},

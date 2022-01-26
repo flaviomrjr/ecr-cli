@@ -20,10 +20,10 @@ func NewSession() *ecr.ECR {
 	return svc
 }
 
-// this func gets repo name
-func SetRepo(cmd *cobra.Command, args []string) string {
+// set repo name
+func SetRepo(cmd *cobra.Command, args []string) []string {
 	// get repo name
-	repo, err := cmd.Flags().GetString("repo")
+	repo, err := cmd.Flags().GetStringSlice("repo")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -71,7 +71,7 @@ func Execute() {
 
 func init() {
 	// global flags
-	rootCmd.PersistentFlags().StringP("repo", "r", "", "Set repo name")
+	rootCmd.PersistentFlags().StringSliceP("repo", "r", []string{}, "Set repo name")
 	rootCmd.PersistentFlags().StringP("profile", "p", "shared", "Set AWS profile")
 	rootCmd.PersistentFlags().StringP("region", "", "sa-east-1", "Set AWS region")
 }

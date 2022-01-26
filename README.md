@@ -68,22 +68,29 @@ Usage:
 
 Flags:
   -h, --help                 help for create-repo
+      --no-policy            Do not apply repo policy
   -f, --policy-file string   Set Policy Path. e.g.: ~/Documents/policy.json (default "policy.json")
 
 Global Flags:
   -p, --profile string   Set AWS profile (default "shared")
       --region string    Set AWS region (default "sa-east-1")
-  -r, --repo string      Set repo name
+  -r, --repo strings     Set repo name
 
 Examples:
 ```shell
 $ ./ecr create-repo --repo apps/mynewrepo
 
-$ ./ecr create-repo --repo apps/mynewrepo2 --profile staging
+$ ./ecr create-repo --repo apps/mynewrepo --profile staging
 
-$ ./ecr create-repo --repo apps/mynewrepo3 --profile development -f ~/Documents/my-new-policy.json
+$ ./ecr create-repo --repo apps/mynewrepo --profile development -f ~/Documents/my-new-policy.json
 
-$ ./ecr create-repo --repo apps/mynewrepo3 --region us-east-1
+$ ./ecr create-repo --repo apps/mynewrepo --region us-east-1
+
+// Create ECR repo withot policy
+$ ./ecr create-repo --repo apps/mynewrepo --no-policy
+
+// Create more than one ECR repo
+$ ./ecr create-repo --repo apps/mynewrepo --repo apps/mynewrepo2
 ```
 
 More functions are comming!
