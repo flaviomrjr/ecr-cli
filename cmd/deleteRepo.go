@@ -13,6 +13,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// delete repo ecr
+func deleteRepo(repo string) {
+
+	result, err := NewSession().DeleteRepository(&ecr.DeleteRepositoryInput{
+		Force:          aws.Bool(true),
+		RepositoryName: &repo,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(result)
+	fmt.Println("Repo deleted")
+}
+
 // deleteRepoCmd represents the deleteRepo command
 var deleteRepoCmd = &cobra.Command{
 	Use:   "delete-repo",
@@ -29,16 +44,7 @@ var deleteRepoCmd = &cobra.Command{
 		repos := SetRepo(cmd, args)
 
 		for _, repo := range repos {
-			result, err := NewSession().DeleteRepository(&ecr.DeleteRepositoryInput{
-				Force:          aws.Bool(true),
-				RepositoryName: &repo,
-			})
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			fmt.Println(result)
-			fmt.Println("Repo deleted")
+			deleteRepo(repo)
 		}
 	},
 }
