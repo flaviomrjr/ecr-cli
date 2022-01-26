@@ -115,7 +115,27 @@ $ ./ecr delete-repo --repo apps/mynewrepo
 $ ./ecr delete-repo --repo apps/mynewrepo1 --repo apps/mynewrepo2
 ```
 
-More functions are comming!
+**update-policy:**
+
+This function updates the repo policy
+
+Usage:
+  ecr update-policy [flags]
+
+Flags:
+  -h, --help                 help for update-policy
+  -f, --policy-file string   Set Policy Path. e.g.: ~/Documents/policy.json
+
+Global Flags:
+  -p, --profile string   Set AWS profile (default "shared")
+      --region string    Set AWS region (default "sa-east-1")
+  -r, --repo strings     Set repo name
+
+Examples:
+```shell
+$ ./ecr update-policy --repo apps/mynewrepo1 --policy-file ~/Documents/new-policy.json
+
+$ ./ecr update-policy --repo apps/mynewrepo1 --repo apps/mynewrepo2 -f ~/Documents/new-policy.json
+```
 
 by Flavio Rocha
-
