@@ -22,7 +22,7 @@ func NewSession() *ecr.ECR {
 
 // set repo name
 func SetRepo(cmd *cobra.Command, args []string) []string {
-	// get repo name
+
 	repo, err := cmd.Flags().GetStringSlice("repo")
 	if err != nil {
 		log.Fatal(err)
@@ -33,7 +33,7 @@ func SetRepo(cmd *cobra.Command, args []string) []string {
 
 // this func gets profile name or set profile to shared
 func SetProfile(cmd *cobra.Command, args []string) {
-	// set profile
+
 	profile, err := cmd.Flags().GetString("profile")
 	if err != nil {
 		log.Fatal(err)
@@ -41,8 +41,9 @@ func SetProfile(cmd *cobra.Command, args []string) {
 	os.Setenv("AWS_PROFILE", profile)
 }
 
+// set aws region
 func SetRegion(cmd *cobra.Command, args []string) {
-	// set region
+
 	region, err := cmd.Flags().GetString("region")
 	if err != nil {
 		log.Fatal(err)

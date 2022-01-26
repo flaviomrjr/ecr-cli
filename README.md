@@ -93,6 +93,28 @@ $ ./ecr create-repo --repo apps/mynewrepo --no-policy
 $ ./ecr create-repo --repo apps/mynewrepo --repo apps/mynewrepo2
 ```
 
+**delete-repo:**
+
+This function deletes one or more ECR repos
+
+Usage:
+  ecr delete-repo [flags]
+
+Flags:
+  -h, --help   help for delete-repo
+
+Global Flags:
+  -p, --profile string   Set AWS profile (default "shared")
+      --region string    Set AWS region (default "sa-east-1")
+  -r, --repo strings     Set repo name
+
+Examples:
+```shell
+$ ./ecr delete-repo --repo apps/mynewrepo
+
+$ ./ecr delete-repo --repo apps/mynewrepo1 --repo apps/mynewrepo2
+```
+
 More functions are comming!
 
 by Flavio Rocha
