@@ -61,6 +61,7 @@ $ go build
 ## Available functions
 
 **create-repo:**
+
 This function creates one or more ECR repos
 
 Usage:
@@ -92,7 +93,7 @@ $ ./ecr create-repo --repo apps/mynewrepo --profile development -f ~/Documents/m
 
 $ ./ecr create-repo --repo apps/mynewrepo --region us-east-1
 
-// Create ECR repo withot policy
+// Create ECR repo without policy
 $ ./ecr create-repo --repo apps/mynewrepo --no-policy
 
 // Create more than one ECR repo
