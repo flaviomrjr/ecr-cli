@@ -61,7 +61,7 @@ $ go build
 ## Available functions
 
 **create-repo:**
-This function creates a new image repo in ECR with some configs imported from a json-file
+This function creates a new image repo in ECR
 
 Usage:
   ecr create-repo [flags]
@@ -72,6 +72,7 @@ Flags:
 
 Global Flags:
   -p, --profile string   Set AWS profile (default "shared")
+      --region string    Set AWS region (default "sa-east-1")
   -r, --repo string      Set repo name
 
 Examples:
@@ -81,6 +82,8 @@ $ ./ecr create-repo --repo apps/mynewrepo
 $ ./ecr create-repo --repo apps/mynewrepo2 --profile staging
 
 $ ./ecr create-repo --repo apps/mynewrepo3 --profile development -f ~/Documents/my-new-policy.json
+
+$ ./ecr create-repo --repo apps/mynewrepo3 --region us-east-1
 ```
 
 More functions are comming!

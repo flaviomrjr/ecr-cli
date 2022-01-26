@@ -32,6 +32,15 @@ func SetProfile(cmd *cobra.Command, args []string) {
 	os.Setenv("AWS_PROFILE", profile)
 }
 
+func SetRegion(cmd *cobra.Command, args []string) {
+	// set region
+	region, err := cmd.Flags().GetString("region")
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.Setenv("AWS_REGION", region)
+}
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "ecr",
@@ -55,4 +64,5 @@ func init() {
 	// global flags
 	rootCmd.PersistentFlags().StringP("repo", "r", "", "Set repo name")
 	rootCmd.PersistentFlags().StringP("profile", "p", "shared", "Set AWS profile")
+	rootCmd.PersistentFlags().StringP("region", "", "sa-east-1", "Set AWS region")
 }

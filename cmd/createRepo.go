@@ -73,8 +73,11 @@ func CreateRepoECR(cmd *cobra.Command, args []string, repo string) {
 var createRepoCmd = &cobra.Command{
 	Use:   "create-repo",
 	Short: "Add a new repo in ECR",
-	Long:  `This function creates a new image repo in ECR with some configs imported from a json-file`,
+	Long:  `This function creates a new image repo in ECR`,
 	Run: func(cmd *cobra.Command, args []string) {
+		// call func SetRegion
+		SetRegion(cmd, args)
+
 		// call func SetProfile
 		SetProfile(cmd, args)
 

@@ -10,9 +10,6 @@ import (
 )
 
 func main() {
-	// set region
-	os.Setenv("AWS_REGION", "sa-east-1")
-
 	// read aws credentials file
 	os.Setenv("AWS_SDK_LOAD_CONFIG", "true")
 	
