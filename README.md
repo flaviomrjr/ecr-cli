@@ -19,7 +19,8 @@ You will find a file called `policy.json` as a template:
 		"Effect": "Allow",
 		"Principal": {
 		  "AWS": [
-			"arn:aws:iam::719493539481:root"
+			"arn:aws:iam::010101010101:root",
+			"arn:aws:iam::020202020202:root"
 		  ]
 		},
 		"Action": [
