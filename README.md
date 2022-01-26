@@ -68,12 +68,16 @@ Usage:
 
 Flags:
   -h, --help                 help for create-repo
-      --no-policy            Do not apply repo policy
+
+  --no-policy            Do not apply repo policy
+  
   -f, --policy-file string   Set Policy Path. e.g.: ~/Documents/policy.json (default "policy.json")
 
 Global Flags:
   -p, --profile string   Set AWS profile (default "shared")
-      --region string    Set AWS region (default "sa-east-1")
+  
+  --region string    Set AWS region (default "sa-east-1")
+  
   -r, --repo strings     Set repo name
 
 Examples:
@@ -105,7 +109,9 @@ Flags:
 
 Global Flags:
   -p, --profile string   Set AWS profile (default "shared")
-      --region string    Set AWS region (default "sa-east-1")
+
+--region string    Set AWS region (default "sa-east-1")
+
   -r, --repo strings     Set repo name
 
 Examples:
@@ -124,11 +130,14 @@ Usage:
 
 Flags:
   -h, --help                 help for update-policy
+  
   -f, --policy-file string   Set Policy Path. e.g.: ~/Documents/policy.json
 
 Global Flags:
   -p, --profile string   Set AWS profile (default "shared")
-      --region string    Set AWS region (default "sa-east-1")
+
+  --region string    Set AWS region (default "sa-east-1")
+  
   -r, --repo strings     Set repo name
 
 Examples:
