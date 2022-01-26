@@ -70,7 +70,7 @@ func CreateRepoECR(cmd *cobra.Command, args []string, repo string) {
 var createRepoCmd = &cobra.Command{
 	Use:   "create-repo",
 	Short: "Add a new repo in ECR",
-	Long:  `This function creates a new image repo in ECR`,
+	Long:  `This function creates one or more ECR repos`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// set aws region
 		SetRegion(cmd, args)

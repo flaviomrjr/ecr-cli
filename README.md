@@ -61,7 +61,7 @@ $ go build
 ## Available functions
 
 **create-repo:**
-This function creates a new image repo in ECR
+This function creates one or more ECR repos
 
 Usage:
   ecr create-repo [flags]
