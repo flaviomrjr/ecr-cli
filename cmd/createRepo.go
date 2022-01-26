@@ -10,55 +10,36 @@ import (
 	"log"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ecr"
 	"github.com/spf13/cobra"
 )
 
 // convert bytes to string
-func BytesToString(data []byte) string {
+func bytesToString(data []byte) string {
 	return string(data[:])
 }
 
-// configure repo policy
-func SetPolicy(cmd *cobra.Command, args []string) string {
-	// read json file
+// get json policy
+func GetPolicy(cmd *cobra.Command, args []string) string {
+	// get json path
 	jsonPath, err := cmd.Flags().GetString("policy-file")
 
+	// read json file
 	jsonData, err := ioutil.ReadFile(jsonPath)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// convert var jsonData from byte to string
-	policy := BytesToString(jsonData)
+	policy := bytesToString(jsonData)
 
 	return policy
 }
 
-// create a ECR repo
-func CreateRepoECR(cmd *cobra.Command, args []string, repo string) {
-	// get repo policy
-	policy := SetPolicy(cmd, args)
+// set ecr policy
+func SetPolicy(policy string, repo string) {
 
-	// create a new session
-	svc := ecr.New(session.New())
-
-	// create repo and show the result
-	result, err := svc.CreateRepository(&ecr.CreateRepositoryInput{
-		RepositoryName:             aws.String(repo),
-		ImageScanningConfiguration: &ecr.ImageScanningConfiguration{ScanOnPush: aws.Bool(true)},
-		ImageTagMutability:         aws.String(ecr.ImageTagMutabilityMutable),
-		EncryptionConfiguration:    &ecr.EncryptionConfiguration{EncryptionType: aws.String("AES256")},
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(result)
-
-	// create policy and show the result
-	resultPolicy, err := svc.SetRepositoryPolicy(&ecr.SetRepositoryPolicyInput{
+	resultPolicy, err := NewSession().SetRepositoryPolicy(&ecr.SetRepositoryPolicyInput{
 		PolicyText:     &policy,
 		RepositoryName: &repo,
 	})
@@ -69,24 +50,56 @@ func CreateRepoECR(cmd *cobra.Command, args []string, repo string) {
 	fmt.Println(resultPolicy)
 }
 
+// create ecr repo
+func CreateRepoECR(cmd *cobra.Command, args []string, repo string) {
+
+	result, err := NewSession().CreateRepository(&ecr.CreateRepositoryInput{
+		RepositoryName:             aws.String(repo),
+		ImageScanningConfiguration: &ecr.ImageScanningConfiguration{ScanOnPush: aws.Bool(true)},
+		ImageTagMutability:         aws.String(ecr.ImageTagMutabilityMutable),
+		EncryptionConfiguration:    &ecr.EncryptionConfiguration{EncryptionType: aws.String("AES256")},
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(result)
+}
+
 // createRepoCmd represents the create-repo command
 var createRepoCmd = &cobra.Command{
 	Use:   "create-repo",
 	Short: "Add a new repo in ECR",
 	Long:  `This function creates a new image repo in ECR`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// call func SetRegion
+		// set aws region
 		SetRegion(cmd, args)
 
-		// call func SetProfile
+		// set aws profile
 		SetProfile(cmd, args)
 
-		// call func CreateRepoECR
-		CreateRepoECR(cmd, args, SetRepo(cmd, args))
+		if noPolicy, err := cmd.Flags().GetBool("no-policy"); err != nil {
+			log.Fatal(err)
+		} else {
+			if noPolicy == false {
+				// get repo policy
+				policy := GetPolicy(cmd, args)
+
+				// create ecr repo
+				CreateRepoECR(cmd, args, SetRepo(cmd, args))
+
+				// set repo policy
+				SetPolicy(policy, SetRepo(cmd, args))
+			} else {
+				// create repo without policy
+				CreateRepoECR(cmd, args, SetRepo(cmd, args))
+			}
+		}
 	},
 }
 
 func init() {
 	createRepoCmd.Flags().StringP("policy-file", "f", "policy.json", "Set Policy Path. e.g.: ~/Documents/policy.json")
+	createRepoCmd.Flags().BoolP("no-policy", "", false, "Do not apply repo policy")
 	rootCmd.AddCommand(createRepoCmd)
 }

@@ -8,8 +8,17 @@ import (
 	"log"
 	"os"
 
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/ecr"
 	"github.com/spf13/cobra"
 )
+
+// create a new session
+func NewSession() *ecr.ECR {
+	svc := ecr.New(session.New())
+
+	return svc
+}
 
 // this func gets repo name
 func SetRepo(cmd *cobra.Command, args []string) string {
