@@ -5,7 +5,7 @@ This cli was built to help you manage your ECR image repositories and make it ea
 
 ## Json Policy
 
-You can set a Json policy in your image repositories.
+You can set a JSON policy in your image repositories.
 
 To do so you just need to create a json file with your repo policy!
 
